@@ -1,0 +1,7 @@
+Wishlist
+- Add search capability
+- verify selected addresses with Google
+- add optional city, state and zip fields
+- show territory on Google Maps
+- Simple Excel export and import
+- Multi-user

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	@media print {
+    .no-print {
+      display: none;
+    }
+	  div.card {
+	  	page-break-inside: avoid;
+	  }
+	}
+	body {
+	  line-height: 0;
+	}
+  div.instructions {
+    background-color: #9DF;
+    border: 3px outset #6CF;
+    border-radius: 10em;
+    font-family: 'Trebuchet MS', Calibri, Tahoma;
+    font-size: 14pt;
+    line-height: 1em;
+    padding: 0.5em;
+    text-shadow: 2px 1px 0px #FFF;
+  }
+  hr {
+    border-color: #6CF;
+    border-radius: 2px;
+    border-width: 2px;
+  }
+  .center {
+    text-align: center;
+  }
+
+  @media screen,print {
+  	div.card {
+  	  background-image: url(data:image/jpeg;base64,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x0fg8d66bFZGs+BdP1u486aEiTuyHaTQBQ1/xcb27jsNMYTTyOC7D+Bc9a6BrCO4RfOjjkYDBYqCag0bw7a6DFtt4VUnq2Msfxq+KAGxRrENqqFUdgOlOoooAKKKKACiiigAooooAKKKKAEY4Fc1Z/E/T7nXJbIs0ZjbaHboxHFdMeled+M/DtrpvjKOa4j/ANB1P5XIH+regDU+JOnNEttrNrzNZtlip+8lR+NmbV9D0/XLPLNalZiB2HUiq8o1DwSjQ3CvqGkTcBh8zRLSfC/XoGubrSd4kt9xa3z/AHTzj9aAOs0TxFba1psdxHIuHXJBP3frWDczr4l+INp9nG6HT1JeQHjd2FT3XwusZbuSaGSa38w5KRnC1taJoFtoFt5VtGsY/iOOWPvQBdHWloHFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAARmsjxp4fXxHoE0P8Ay0A3Rt/dYVr0MMigDnPh9rP/AAkHh7ybhd01sTDKrDrip9O8AadpesNeww7ZM5Azwv0rWtrOK0ZzHGsfmHc2Fxk1NQACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z);
+      border: 1px dashed #888;
+      float: left;
+      font-family: Arial;
+      font-size: 8pt;
+      height: 4.75in;
+      margin:0.125in;
+      padding: 10px;
+      width: 3.5in;
+
+      box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
+  	}
+  }
+	div.card table {
+	  width: 100%;
+	}
+	div.card td.label {
+	  font-weight: bold;
+	}
+	div.card td.label, div.card td.page {
+	  width: 1px;
+	}
+	div.card td.territory-id {
+	  width: 99%;
+	}
+	div.card td.underlined {
+	  border-bottom: 1px solid #000;
+	}
+	div.card div.line {
+	  line-height: 1em;
+	}
+  table.addresses {
+    border-collapse: collapse;
+    line-height: 1em;
+    margin: 3px 0;
+  }
+  table.addresses tr.header td {
+    font-size: 8.5pt;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  table.addresses td {
+    border: 1px solid #000;
+    padding: 3px 1px;
+  }
+  table.addresses .street {
+    font-weight: bold;
+    text-align: center;
+  }
+  table.addresses .house {
+    text-align: center;
+  }
+  table.addresses .details {
+    text-align: left;
+  }
+  table.addresses .house {
+    width: 1;
+  }
+  table.addresses .details {
+    width: 99%;
+  }
+  table.addresses td {
+    vertical-align: top;
+  }
+  div.card div.footer {
+    font-style: italic;
+    text-align: center;
+  }
+	</style>
+  <script src="settings.js" type="text/JavaScript"></script>
+  <script src="utils.js" type="text/JavaScript"></script>
+  <script src="JSON2.js" type="text/JavaScript"></script>
+  <script src="sizzle.js" type="text/JavaScript"></script>
+  <script src="print.js" type="text/JavaScript"></script>
+  <script type='text/JavaScript'>
+  poll(
+    function() {
+      return window.setup;
+    },
+    function () {
+      setup([/*TERR INSERTION*/], {/*TERR OPTIONS*/});
+    }
+  );
+  </script>
+</head>
+  <body>
+    <div class="no-print instructions">
+      <h1 class="center"></h1>
+      <hr />
+      <p class="center"></p>
+    </div>
+  </body>
+</html>

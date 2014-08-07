@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Convert To JSON</title>
+    <script type="text/javascript">
+    var WORKSHEET_TO_CONVERT = "Todos los territorios";
+    var COL_TERR_NO = 1; // A
+    var COL_TERR_NAME = 2; // B
+    var COL_HOUSE_NO = 3; // C
+    var COL_APT_NO = 4; // D
+    var COL_STREET = 5; // E
+    var COL_DETAILS = 6; // F
+    var FIRST_DATA_ROW = 2;
+
+    function convertFile(pathname) {
+      var xlApp = new ActiveXObject('Excel.Application');
+      xlApp.Visible = true;
+      xlApp.ScreenUpdating = false;
+      xlApp.DisplayAlerts = false;
+
+      var wb = xlApp.Workbooks.Open(pathname);
+      var ws = wb.Sheets(WORKSHEET_TO_CONVERT);
+
+      var terrs = {};
+
+      // Loop through all of the records in the tab.
+      var LAST_DATA_ROW = ws.UsedRange.Rows.Count;
+      var terr, terrName, terrNo, house, apt, street, details;
+      for(var i = FIRST_DATA_ROW; i <= LAST_DATA_ROW; i++) {
+        xlApp.StatusBar = 'Row ' + i + ' of ' + LAST_DATA_ROW;
+        terrNo = (ws.Cells(i, COL_TERR_NO).Text + '').trim();
+        terrName = (ws.Cells(i, COL_TERR_NAME).Text + '').trim();
+        house = (ws.Cells(i, COL_HOUSE_NO).Text + '').trim();
+        apt = (ws.Cells(i, COL_APT_NO).Text + '').trim();
+        street = (ws.Cells(i, COL_STREET).Text + '').trim();
+        details = (ws.Cells(i, COL_DETAILS).Text + '').trim();
+
+        if(terrNo && terrName) {
+          if(!(terrNo in terrs)) {
+            terrs[terrNo] = {name: terrName, addresses: []};
+          }
+          terrs[terrNo].addresses.push(terr = {});
+          house && (terr.house = house);
+          apt && (terr.apt = apt);
+          street && (terr.street = street);
+          details && (terr.details = details);
+        }
+      }
+
+      saveFile(pathname.replace(/\.\w+$/, '.js'), JSON.stringify(terrs));
+
+      xlApp.Quit();
+    }
+    </script>
+    <script src="scripts/ms-utils.js" type="text/JavaScript"></script>
+    <script src="scripts/utils.js" type="text/JavaScript"></script>
+    <script src="scripts/JSON2.js" type="text/JavaScript"></script>
+  </head>
+  <body>
+    <h1>Convert To JSON</h1>
+    <form>
+      <input type="file" onchange="convertFile(this.value)" />
+    </form>
+  </body>
+</html>

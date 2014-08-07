@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <title>Territory Manager</title><meta http-equiv="x-ua-compatible" content="IE=7" >
+    <hta:application id="territoryManager"
+      applicationname="Territory Manager"
+      version="1.0.1"
+      caption="yes"
+      innerBorder="no"
+      showintaskbar="yes"
+      singleinstance="yes"
+      sysMenu="no" />
+    <link href="scripts/style.css" type="text/css" rel="stylesheet" />
+    <script src="scripts/territory-manager.js" type="text/javascript"></script>
+    <script src="scripts/utils.js" type="text/JavaScript"></script>
+    <script src="scripts/ms-utils.js" type="text/JavaScript"></script>
+    <script src="scripts/JSON2.js" type="text/JavaScript"></script>
+    <script src="scripts/sizzle.js" type="text/JavaScript"></script>
+    <script src="scripts/settings.js" type="text/JavaScript"></script>
+  </head>
+  <body>
+      <div id="divAddresses"></div>
+
+    <div id="divNormal">
+      <div id="divLeftMenu">
+        <fieldset>
+          <legend id="legendTerr"><span></span>&nbsp;<a id="aTerrFiltersHelp" class="help">(?)</a></legend>
+          <select id="selectTerrs" multiple="multiple" size="10"></select>
+        </fieldset>
+        <input type="button" id="btnAddTerr" class="button" value="" />
+        <input type="button" id="btnPrint" class="button" value="" />
+        <input type="button" id="btnSave" class="button" value="" />
+        <input type="button" id="btnClose" class="button" value="" />
+      </div>
+
+    </div>
+
+    <div id="divError" class="no-display">
+      <div id="divErrorTitle"></div>
+      <div id="divErrorMsg"></div>
+      <div id="divErrorBtns"></div>
+    </div>
+
+  </body>
+</html>

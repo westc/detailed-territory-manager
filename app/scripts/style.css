@@ -1,0 +1,161 @@
+html, body {
+  background-color: #F0F0F0;
+  border: none;
+  cursor: default;
+  font-family: Cambria, Tahoma;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  height:100%;
+  width: 100%;
+}
+.no-display {
+  display: none;
+}
+
+.button {
+  background: #CCC;
+  color: #000;
+  cursor: pointer;
+  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=#FFFFFF, endColorstr=#999999);
+  font-family: 'Trebuchet MS', Tahoma;
+  zoom: 1;
+}
+
+select, textarea, .textbox {
+  font-family: 'Courier New', Courier;
+  font-size: 9.5pt;
+}
+
+#divLeftMenu {
+  height: 100%;
+  left: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+  z-index: 2;
+}
+#divLeftMenu fieldset {
+  padding: 0 4px 4px;
+  margin-bottom: 4px;
+}
+#divLeftMenu a.help {
+  border-bottom: 1px dotted #39C;
+  color: #39C;
+  cursor: pointer;
+  font-weight: bold;
+}
+#divLeftMenu a.help:hover {
+  border-bottom: #F60;
+  color: #F60;
+}
+#divLeftMenu .button {;
+  display: block;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+div.textboxContainer {
+  padding-right: 6px !important;
+}
+#divLeftMenu textarea {
+  display: block;
+  width: 100%;
+}
+
+#selectTerrs {
+  width: 100%;
+}
+
+#divAddresses {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  left: 400px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+#divAddresses div.terrTitle {
+  border: 1px solid #069;
+  border-top-color: #9CF;
+  border-left-color: #9CF;
+  border-radius: 3px;
+  font-family: 'Arial Black';
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#99CCFF, endColorstr=#006699);
+  font-weight: bold;
+  margin-top: 7px;
+  padding: 3px;
+  zoom: 1;
+}
+#divAddresses div.terrTitle a.edit {
+  color: #FF8;
+  cursor: pointer;
+}
+#divAddresses div.terrTitle a.edit:hover {
+  color: #FFF;
+}
+
+#divAddresses hr.insertionPoint {
+  border: 1px solid #046;
+  border-radius: 2px;
+  clear: both;
+  color: #BDF;
+  cursor: pointer;
+  height: 5px;
+  margin: 0px;
+  margin-right: 2px;
+  padding: 0px;
+  zoom: 1;
+}
+#divAddresses hr.insertionPoint:hover {
+  border-color: #640;
+  color: #FDB;
+  zoom: 1;
+}
+
+#fieldsetEdit {
+  border-color: transparent;
+  padding: 0 3px 0 0;
+}
+#fieldsetEdit input.text {
+  display: block;
+  width: 100%;
+}
+#fieldsetEdit input.unset {
+  color: #BBB;
+}
+
+#divAddresses input.checkbox {
+  float: left;
+  margin-right: 5px;
+}
+
+#divAddresses div.address {
+  overflow: hidden;
+}
+#divAddresses div.address.flagged {
+  background-color: #FC9;
+}
+#divAddresses div.address a.edit {
+  color: #036;
+  cursor: pointer;
+  float: left;
+}
+#divAddresses div.address a.edit:hover {
+  color: #F60;
+}
+#divAddresses div.address a.flag {
+  color: #C00;
+  cursor: pointer;
+  float: right;
+  font-style: italic;
+  padding-left: 10px;
+}
+#divAddresses div.address a.flag:hover {
+  color: #C60;
+}

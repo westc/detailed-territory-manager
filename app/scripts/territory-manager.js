@@ -1,4 +1,4 @@
-var APP_PATH = location.pathname.replace(/\\/g, '/');
+var APP_PATH = territoryManager.commandLine.replace(/^"|".*$/g, '').replace(/\\/g, '/');
 var APP_DIR_PATH = APP_PATH.replace(/[^/]+$/, '');
 var DATA_DIR_PATH = APP_DIR_PATH + 'datos/';
 var DATA_PATH = DATA_DIR_PATH + 'actual.js';

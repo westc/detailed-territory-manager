@@ -72,6 +72,8 @@ var SETTINGS = {
 
     LEFT_MENU_PRINT_BUTTON: 'Imprimir la selecci\xF3n',
 
+    LEFT_MENU_OPTIONS_BUTTON: 'Opciones',
+
     LEFT_MENU_SAVE_BUTTON: 'Guardar todo',
 
     LEFT_MENU_CLOSE_BUTTON: 'Salir',
@@ -139,5 +141,16 @@ var SETTINGS = {
     
     RECORD_BLANKS_AT_END_OF_TERRITORY: 0,
 
-    RECORD_REPEAT_SAME_HOUSE_NUMBER: false
+    RECORD_REPEAT_SAME_HOUSE_NUMBER: false,
+
+    OPTIONS_MENU: {
+        SHOW_TOTAL_COUNTS: {
+            title: 'Muestra el n\xFAmero de hogares',
+            text: 'En vez de hacer cuentas para llegar a la cantidad de hogares en todos los territorios, se puede hacer clic aqui para ver la suma.'
+        },
+        GOTO_GITHUB: {
+            title: 'Va al almac\xE9n en GitHub',
+            text: 'Aunque esta applicacion esta descargada, se encuentra la version actualizada en GitHub.'
+        }
+    }
 };

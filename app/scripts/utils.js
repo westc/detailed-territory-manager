@@ -139,11 +139,11 @@ function filter(arr, fnCallback) {
         if (propName == 'style') {
           var style = elem[propName];
           if (typeOf(propValue, 'String')) {
-            style.cssText = propValue;
+            elem.style.cssText = propValue;
           }
           else {
             eachProperty(propValue, function(stylePropName, stylePropValue) {
-              style[stylePropName.replace(regExpDash, cap$1)] = propValue[stylePropName];
+              elem.style[stylePropName.replace(regExpDash, cap$1)] = propValue[stylePropName];
             });
           }
         }

@@ -1,6 +1,6 @@
 var APP_PATH = territoryManager.commandLine.replace(/^"|".*$/g, '').replace(/\\/g, '/');
 var APP_DIR_PATH = APP_PATH.replace(/[^/]+$/, '');
-var DATA_DIR_PATH = APP_DIR_PATH + 'datos/';
+var DATA_DIR_PATH = APP_DIR_PATH + 'data/';
 var DATA_PATH = DATA_DIR_PATH + 'actual.js';
 var SCRIPTS_DIR_PATH = APP_DIR_PATH + 'scripts/';
 var IMAGES_DIR_PATH = APP_DIR_PATH + 'images/';
@@ -19,7 +19,7 @@ function addToHistory(fn) {
 // in JavaScript.
 var divNormal, selectTerrs, divAddresses,
     divError, divErrorTitle, divErrorMsg, divErrorBtns,
-    btnAddTerr, btnSave, btnPrint, btnClose;
+    btnAddTerr, btnSave, btnOptions, btnPrint, btnClose;
 function refDOMElems() {
   divNormal = Sizzle('#divNormal')[0];
   selectTerrs = Sizzle('#selectTerrs')[0];
@@ -30,6 +30,7 @@ function refDOMElems() {
   divErrorBtns = Sizzle('#divErrorBtns')[0];
   btnAddTerr = Sizzle('#btnAddTerr')[0];
   btnSave = Sizzle('#btnSave')[0];
+  btnOptions = Sizzle('#btnOptions')[0];
   btnPrint = Sizzle('#btnPrint')[0];
   btnClose = Sizzle('#btnClose')[0];
 }
@@ -111,6 +112,8 @@ function setupBindings() {
 
   btnSave.onclick = curry(verifyNotEditing, saveTerr);
 
+  btnOptions.onclick = showOptions;
+
   btnPrint.onclick = printTerrs;
 
   btnClose.onclick = curry(verifyNotEditing, closeApp);
@@ -125,6 +128,103 @@ function closeApp() {
     }
     window.close();
   }
+}
+
+function showOptions() {
+  var overlay = dom({
+    nodeName: 'div',
+    id: 'overlay'
+  });
+  document.body.appendChild(overlay);
+
+  var content = dom({
+    nodeName: 'div',
+    id: 'overlay-content',
+    innerHTML: (function(){/*
+      <table id="options-filter-table">
+        <tr>
+          <td style="font-weight: bold; width: 1px;"><label for="options-filter">Filter</label></td>
+          <td style="width: 99%;">
+            <div style="padding-right: 6px;">
+              <div id="options-filter-wrap">
+                <input id="options-filter" type="text" />
+              </div>
+            </div>
+          </td>
+          <td style="font-weight: bold; width: 1px;"><input type="button" id="btnCloseOptions" class="button" value="" /></td>
+        </tr>
+      </table>
+      <div id="options-wrap"></div>
+    */} + '').replace(/^.+?\/\*|\*\/.*?$/g, '')
+  });
+  document.body.appendChild(content);
+
+  var btnCloseOptions = Sizzle('#btnCloseOptions')[0];
+  btnCloseOptions.onclick = closeOptions;
+
+  var wrap = Sizzle('#options-wrap')[0];
+  var items = [];
+  eachProperty(SETTINGS.OPTIONS_MENU, function(key, item) {
+    items.push({
+      title: item.title,
+      text: item.text,
+      key: key
+    });
+  });
+  forEach(items.sort(function(a, b) {
+    return a.title < b.title ? -1 : 1;
+  }), function(item) {
+    wrap.appendChild(dom({
+      nodeName: 'div',
+      onclick: curry(handleOption, closeOptions, item.key),
+      className: 'option',
+      children: [
+        {
+          nodeName: 'div',
+          className: 'title',
+          innerText: item.title
+        },
+        {
+          nodeName: 'div',
+          className: 'text',
+          innerText: item.text
+        }
+      ]
+    }));
+  });
+
+  function closeOptions() {
+    document.body.removeChild(overlay);
+    document.body.removeChild(content);
+  }
+}
+
+var OPTION_CALLBACKS = {
+  SHOW_TOTAL_COUNTS: function() {
+    var unflagged = 0;
+    var total = 0;
+    eachProperty(terrs, function(terrNo, terr) {
+      unflagged += filter(terr.addresses, function(addr) {
+        return !addr.flag;
+      }).length;
+      total += terr.addresses.length;
+    })
+    MsgBox(unflagged + '/' + total, vbInformation + vbOKOnly, 'Total Counts');
+  },
+  GOTO_GITHUB: function() {
+    (new ActiveXObject("WScript.Shell")).Run("https://github.com/westc/detailed-territory-manager/");
+  }
+};
+
+function handleOption(closeOptions, key) {
+  var callback = OPTION_CALLBACKS[key];
+  if (typeOf(callback, 'Function')) {
+    callback();
+  }
+  else {
+    MsgBox('"' + key + '" option not yet defined.', vbCritical + vbOKOnly, 'Option Not Handled');
+  }
+  closeOptions();
 }
 
 function printTerrs() {
@@ -693,6 +793,8 @@ function loadSettings() {
   Sizzle('#btnAddTerr')[0].value = SETTINGS.LEFT_MENU_ADD_TERRITORY_BUTTON;
 
   btnPrint.value = SETTINGS.LEFT_MENU_PRINT_BUTTON;
+
+  btnOptions.value = SETTINGS.LEFT_MENU_OPTIONS_BUTTON;
 
   btnSave.value = SETTINGS.LEFT_MENU_SAVE_BUTTON;
 

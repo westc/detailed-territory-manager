@@ -159,3 +159,77 @@ div.textboxContainer {
 #divAddresses div.address a.flag:hover {
   color: #C60;
 }
+
+/* Start Overlay */
+#overlay {
+  background-color: #DEF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.8;
+  filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  z-index: 10;
+  zoom: 1;
+}
+#overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  height: 100%;
+}
+/* End Overlay */
+
+#options-filter-table {
+  font-family: 'Trebuchet MS';
+  width: 100%;
+}
+#options-filter-table * {
+  font-size: 20pt;
+}
+#options-filter-wrap {
+  filter:progid:DXImageTransform.Microsoft.Glow(Strength=2,Color=black);
+  background-color: #FFF;
+  zoom: 1;
+}
+#options-filter {
+  border: 0;
+  width: 100%;
+  background-color: transparent;
+  position: relative;
+  padding: 5px 5px 0;
+}
+#options-wrap {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 0 5px 5px;
+}
+#options-wrap .option {
+  background-color: #DEF;
+  border: 1px solid #BDF;
+  cursor: pointer;
+  margin: 6px 0;
+  padding: 0 6px;
+}
+#options-wrap .option:hover {
+  background-color: #FFF;
+  border: 1px solid #BDF;
+}
+#options-wrap .title {
+  border-bottom: 1px solid #DEF;
+  text-align: left;
+  font-size: 18pt;
+}
+#options-wrap .text {
+  text-align: left;
+  padding-left: 50px;
+  font-size: 14pt;
+}

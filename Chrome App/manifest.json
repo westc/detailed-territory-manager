@@ -1,0 +1,16 @@
+{
+  "name": "Detail Territory Manager",
+  "description": "Keep track of territories that list individual homes.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "16": "images/icon-16.png", "128": "images/icon-128.png" },
+  "permissions": [
+    {"fileSystem": ["write", "retainEntries", "directory"]},
+    "storage"
+  ]
+}

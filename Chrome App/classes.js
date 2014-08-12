@@ -207,7 +207,7 @@ Territory = classify(
         return {
           name: this._.name,
           number: this._.number,
-          isForPhones: this._.isForPhones;
+          isForPhones: this._.isForPhones,
           items: this._.items.map(function(address) {
             return address.toObject();
           })

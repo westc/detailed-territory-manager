@@ -1,0 +1,28 @@
+{
+  "name": "Detail Territory Manager",
+  "description": "Keep track of territories that list individual homes.",
+  "author": {
+    "name": "Christopher West",
+    "email": "cwest-engineer@outlook.com"
+  },
+  "version": "0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": {
+    "16": "images/blue-marker-16.png",
+    "32": "images/blue-marker-32.png",
+    "48": "images/blue-marker-48.png",
+    "64": "images/blue-marker-64.png",
+    "128": "images/blue-marker-128.png",
+    "256": "images/blue-marker-256.png",
+    "2400": "images/blue-marker-2400.png"
+  },
+  "permissions": [
+    {"fileSystem": ["write", "retainEntries", "directory"]},
+    "storage"
+  ]
+}

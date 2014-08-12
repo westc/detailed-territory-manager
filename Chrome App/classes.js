@@ -113,6 +113,54 @@ var classify = (function(fakeClass) {
   }
 })(function(){});
 
+/* TerritoryCollection Class */
+TerritoryCollection = classify(
+  function(arr) {
+    this._.territories = arr.map(function(terrObj) {
+      return new Territory(terrObj);
+    });
+  },
+  {
+    prototype: {
+      getByName: function(name) {
+        var isRegExp = Object.prototype.toString.call(name) == '[object RegExp]';
+        return this._.territories.filter(function(terr) {
+          var terrName = terr.getName();
+          return (isRegExp && name.test(terrName)) || name == terrName;
+        });
+      },
+      getByNumber: function(number) {
+        for (var terrs = this._.territories, i = terrs.length; i--;) {
+          if (terrs[i].getNumber() == number) {
+            return terrs[i];
+          }
+        }
+      },
+      forEach: function(callback, opt_context) {
+        var terrs = this._.territories;
+        for (var i = 0, len = terrs.length; i < len; i++) {
+          callback.call(opt_context, terrs[i], terrs[i].getNumber(), terrs[i].getName(), this);
+        }
+      },
+      count: function() {
+        return this._.territories.length;
+      },
+      remove: function(terrToRemove) {
+        var index = this._.territories.indexOf(terrToRemove);
+        if (index + 1) {
+          this._.territories.splice(index, 1);
+        }
+        return index > -1;
+      },
+      add: function(name_or_obj, opt_num) {
+        var terr = new Territory(name, number);
+        this._.territories.push(terr);
+        return terr;
+      }
+    }
+  }
+);
+
 /* Territory Class */
 Territory = classify(
   function(name_or_obj, opt_num) {
@@ -122,6 +170,9 @@ Territory = classify(
       this._.addresses = [];
     }
     else {
+      if (name_or_obj instanceof Territory) {
+        name_or_obj = name_or_obj.toObject();
+      }
       this._.name = name_or_obj.name;
       this._.number = name_or_obj.number;
       this._.addresses = name_or_obj.addresses.map(function(address) {

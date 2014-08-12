@@ -156,6 +156,14 @@ TerritoryCollection = classify(
         var terr = new Territory(name, number);
         this._.territories.push(terr);
         return terr;
+      },
+      toJSON: function() {
+        return JSON.stringify(this.toObject());
+      },
+      toObject: function() {
+        return this._.territories.map(function(terr) {
+          return terr.toObject();
+        });
       }
     }
   }
@@ -163,11 +171,12 @@ TerritoryCollection = classify(
 
 /* Territory Class */
 Territory = classify(
-  function(name_or_obj, opt_num) {
+  function(name_or_obj, opt_num, opt_isForPhones, opt_items) {
     if (Object.prototype.toString.call(name_or_obj) == '[object String]') {
       this._.name = name_or_obj;
       this._.number = opt_num;
-      this._.addresses = [];
+      this._.isForPhones = opt_isForPhones;
+      this._.items = opt_items || [];
     }
     else {
       if (name_or_obj instanceof Territory) {
@@ -175,17 +184,21 @@ Territory = classify(
       }
       this._.name = name_or_obj.name;
       this._.number = name_or_obj.number;
-      this._.addresses = name_or_obj.addresses.map(function(address) {
-        return new Address(address);
-      });
+      this._.isForPhones = name_or_obj.isForPhones;
+      this._.items = name_or_obj.items;
     }
+    var ItemConstructor = this._.ItemConstructor = this._.isForPhones ? Phone : Address;
+    this._.items = this._.items.map(function(address) {
+      return new ItemConstructor(address);
+    });
   },
   {
-    getters: ['name', 'number', 'addresses'],
-    setters: ['name', 'number', 'addresses'],
+    getters: ['name', 'number', 'isForPhones', 'items'],
+    setters: ['name', 'number', 'isForPhones', 'items'],
     prototype: {
+      ItemConstructor: undefined,
       count: function() {
-        return (this._.addresses || '').length;
+        return (this._.items || '').length;
       },
       toJSON: function() {
         return JSON.stringify(this.toObject());
@@ -194,20 +207,80 @@ Territory = classify(
         return {
           name: this._.name,
           number: this._.number,
-          addresses: this._.addresses.map(function(address) {
+          isForPhones: this._.isForPhones;
+          items: this._.items.map(function(address) {
             return address.toObject();
           })
         };
+      },
+      forEach: function(callback, opt_context) {
+        var items = this._.items;
+        for (var item, i = 0, len = items.length; i < len; i++) {
+          item = items[i];
+          callback.call(opt_context, item, item.getNumber(), item.getName(), this);
+        }
       }
+    }
+  }
+);
+
+/* Phone Class */
+Phone = classify(
+  function (num_or_obj, opt_city, opt_region, opt_country, opt_details, opt_tags) {
+    if (Object.prototype.toString.call(num_or_obj) == '[object Object]') {
+      if (num_or_obj instanceof Phone) {
+        num_or_obj = num_or_obj.toObject();
+      }
+      this._.phone = num_or_obj.phone;
+      this._.city = num_or_obj.city;
+      this._.region = num_or_obj.region;
+      this._.country = num_or_obj.country;
+      this._.details = num_or_obj.details;
+      this._.tags = num_or_obj.tags;
+    }
+    else {
+      this._.phone = num_or_obj;
+      this._.city = opt_city;
+      this._.region = opt_region;
+      this._.country = opt_country;
+      this._.details = opt_details;
+      this._.tags = opt_tags;
+    }
+  },
+  {
+    getters: ['phone','city','region','country','details','tags'],
+    setters: ['phone','city','region','country','details','tags'],
+    prototype: {
+      toJSON: function() {
+        return JSON.stringify(this.toObject());
+      },
+      toObject: function() {
+        var ret = {
+          house: this._house,
+          street: this._street
+        };
+        Address.OPT_PROPS.forEach(function(prop) {
+          if (this[prop]) {
+            ret[prop] = this[prop];
+          }
+        });
+        return ret;
+      }
+    },
+    properties: {
+      OPT_PROPS: [ 'city', 'region', 'country', 'details', 'tags']
     }
   }
 );
 
 /* Address Class */
 Address = classify(
-  function Address(num_or_obj, opt_street, opt_city, opt_region, opt_country, opt_details, opt_tags) {
+  function (num_or_obj, opt_street, opt_city, opt_region, opt_country, opt_details, opt_tags) {
     if (Object.prototype.toString.call(name_or_obj) == '[object Object]') {
-      this._.number = num_or_obj.number;
+      if (num_or_obj instanceof Address) {
+        num_or_obj = num_or_obj.toObject();
+      }
+      this._.home = num_or_obj.home;
       this._.street = num_or_obj.street;
       this._.city = num_or_obj.city;
       this._.region = num_or_obj.region;
@@ -216,7 +289,7 @@ Address = classify(
       this._.tags = num_or_obj.tags;
     }
     else {
-      this._.number = num_or_obj;
+      this._.home = num_or_obj;
       this._.street = opt_street;
       this._.city = opt_city;
       this._.region = opt_region;
@@ -226,15 +299,15 @@ Address = classify(
     }
   },
   {
-    getters: ['number','street','city','region','country','details','tags'],
-    setters: ['number','street','city','region','country','details','tags'],
+    getters: ['home','street','city','region','country','details','tags'],
+    setters: ['home','street','city','region','country','details','tags'],
     prototype: {
       toJSON: function() {
         return JSON.stringify(this.toObject());
       },
       toObject: function() {
         var ret = {
-          number: this._number,
+          home: this._house,
           street: this._street
         };
         Address.OPT_PROPS.forEach(function(prop) {
